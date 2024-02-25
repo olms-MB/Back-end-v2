@@ -1,18 +1,19 @@
-require('dotenv').config({ path: '.env' });
-const express = require('express');
-const mongoose = require('mongoose');
-const userRouter = require('./Routes/userRoutes');
+import "dotenv/config";
+import express from "express";
+import { connect } from "mongoose";
+import userRouter from "./Routes/userRoutes.js";
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(userRouter);
 
-
-mongoose.connect(process.env.MONGO_URI)
-.then(()=>{
-    console.log('connected to database');
-    app.listen(process.env.PORT,()=>{
-        console.log(`server started at port ${process.env.PORT}`);
-    })
-})
-.catch(err => console.error('Error connectingS', err));
+connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("Connection established...🔗");
+    app.listen(process.env.PORT, () => {
+      console.log(`Server running at port ${process.env.PORT}`);
+    });
+  })
+  .catch((err) => console.error("❌❌ Error connecting to server ❌❌", err));
