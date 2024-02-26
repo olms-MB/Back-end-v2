@@ -1,13 +1,11 @@
-const express = require('express');
-const userController = require('../Controllers/userController');
-const userRouter  = express.Router();
+import express from "express";
+import userController from "../Controllers/userController.js";
 
-userRouter.post('/profile-setup',userController.profileSetup);
-userRouter.post('/login',userController.login);
+const userRouter = express.Router();
+
+userRouter.post("/profile-setup", userController.profileSetup);
+userRouter.post("/login", userController.login);
 
 // edited router
 
-
-
-
-module.exports  =userRouter;
+export default userRouter;
